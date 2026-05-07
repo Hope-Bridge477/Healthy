@@ -1,285 +1,819 @@
-export default function FuturisticLifestyleApp() {
-  const stats = [
-    { title: 'Health Score', value: '92%', desc: 'Excellent recovery' },
-    { title: 'Calories Burned', value: '1,840', desc: 'Today total burn' },
-    { title: 'Sleep Quality', value: '8.4h', desc: 'Deep sleep improved' },
-    { title: 'Hydration', value: '3.1L', desc: 'Optimal hydration' },
-  ];
+// Ultimate AI Lifestyle Platform Prototype
+// Next.js + React + Tailwind CSS
+// Massive professional single-file demo architecture
 
-  const workouts = [
-    'AI Fat Burn HIIT',
-    'Strength Builder Pro',
-    'Morning Mobility Flow',
-    'Athletic Core Blast',
-  ];
+'use client';
 
-  const foods = [
-    {
-      name: 'Chicken + Rice + Avocado',
-      protein: '48g Protein',
-      score: '95/100',
-    },
-    {
-      name: 'Oats + Banana + Peanut Butter',
-      protein: '21g Protein',
-      score: '89/100',
-    },
-    {
-      name: 'Salmon + Sweet Potato',
-      protein: '41g Protein',
-      score: '97/100',
-    },
-  ];
+import { useEffect, useMemo, useState } from 'react';
+import {
+  Activity,
+  Apple,
+  BarChart3,
+  Bell,
+  Brain,
+  Calendar,
+  Camera,
+  CheckCircle2,
+  ChevronRight,
+  Clock3,
+  Cpu,
+  Dumbbell,
+  Flame,
+  HeartPulse,
+  LineChart,
+  Moon,
+  Play,
+  Shield,
+  Sparkles,
+  Star,
+  TrendingUp,
+  Trophy,
+  Utensils,
+  Waves,
+  Zap,
+} from 'lucide-react';
+
+const dashboardStats = [
+  {
+    title: 'Overall Health Score',
+    value: '94%',
+    growth: '+12%',
+    icon: HeartPulse,
+  },
+  {
+    title: 'Calories Burned',
+    value: '2,481',
+    growth: '+18%',
+    icon: Flame,
+  },
+  {
+    title: 'Sleep Optimization',
+    value: '8.7h',
+    growth: '+9%',
+    icon: Moon,
+  },
+  {
+    title: 'Hydration Level',
+    value: '3.8L',
+    growth: '+22%',
+    icon: Waves,
+  },
+];
+
+const features = [
+  {
+    title: 'AI Nutrition Intelligence',
+    description:
+      'Analyzes meals, calories, protein, micronutrients, digestion patterns, and healthy food combinations.',
+    icon: Apple,
+  },
+  {
+    title: 'Adaptive Workout Engine',
+    description:
+      'Generates workouts using your body type, recovery status, sleep, stress, and available equipment.',
+    icon: Dumbbell,
+  },
+  {
+    title: 'Lifestyle Prediction System',
+    description:
+      'Predicts burnout, dehydration, low recovery, and unhealthy lifestyle patterns using behavioral AI.',
+    icon: Brain,
+  },
+  {
+    title: 'Performance Analytics',
+    description:
+      'Track body transformation, performance, consistency, and long-term habit optimization.',
+    icon: LineChart,
+  },
+  {
+    title: 'AI Food Scanner',
+    description:
+      'Upload food images and instantly detect calories, sugar, fats, protein, and health score.',
+    icon: Camera,
+  },
+  {
+    title: 'Recovery Intelligence',
+    description:
+      'AI determines optimal recovery windows and warns you before overtraining occurs.',
+    icon: Shield,
+  },
+];
+
+const meals = [
+  {
+    title: 'Salmon + Avocado Bowl',
+    calories: 620,
+    protein: '46g',
+    carbs: '39g',
+    score: 96,
+  },
+  {
+    title: 'Chicken + Brown Rice',
+    calories: 710,
+    protein: '52g',
+    carbs: '61g',
+    score: 92,
+  },
+  {
+    title: 'Protein Oats Deluxe',
+    calories: 480,
+    protein: '31g',
+    carbs: '55g',
+    score: 88,
+  },
+  {
+    title: 'Greek Yogurt Power Mix',
+    calories: 390,
+    protein: '28g',
+    carbs: '22g',
+    score: 91,
+  },
+];
+
+const workouts = [
+  {
+    name: 'AI Fat Burn Protocol',
+    duration: '42 Minutes',
+    intensity: 'High',
+    recovery: '6 Hours',
+  },
+  {
+    name: 'Strength Hypertrophy Max',
+    duration: '67 Minutes',
+    intensity: 'Extreme',
+    recovery: '12 Hours',
+  },
+  {
+    name: 'Mobility Recovery Flow',
+    duration: '28 Minutes',
+    intensity: 'Low',
+    recovery: '2 Hours',
+  },
+  {
+    name: 'Athletic Explosive Circuit',
+    duration: '51 Minutes',
+    intensity: 'Medium',
+    recovery: '8 Hours',
+  },
+];
+
+const habits = [
+  'Drink 3L water daily',
+  'Sleep before 11 PM',
+  'Morning sunlight exposure',
+  '30 minutes cardio session',
+  '10,000 daily steps',
+  'Protein-rich breakfast',
+  'Meditation & stress recovery',
+  'Stretching before sleep',
+];
+
+function GlassCard({ children, className = '' }: any) {
+  return (
+    <div
+      className={`rounded-[32px] border border-white/10 bg-white/5 backdrop-blur-2xl shadow-[0_0_60px_rgba(0,255,255,0.06)] ${className}`}
+    >
+      {children}
+    </div>
+  );
+}
+
+function GradientButton({ children }: any) {
+  return (
+    <button className="rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 px-8 py-4 font-bold text-white shadow-[0_0_50px_rgba(0,255,255,0.25)] transition duration-300 hover:scale-105 hover:shadow-[0_0_80px_rgba(0,255,255,0.45)]">
+      {children}
+    </button>
+  );
+}
+
+function ProgressBar({ value }: any) {
+  return (
+    <div className="h-3 w-full overflow-hidden rounded-full bg-white/10">
+      <div
+        className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-purple-500"
+        style={{ width: `${value}%` }}
+      />
+    </div>
+  );
+}
+
+export default function UltimateLifestylePlatform() {
+  const [healthScore, setHealthScore] = useState(78);
+  const [hydration, setHydration] = useState(65);
+  const [sleep, setSleep] = useState(82);
+  const [recovery, setRecovery] = useState(71);
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHealthScore((prev) => (prev >= 96 ? 78 : prev + 1));
+      setHydration((prev) => (prev >= 98 ? 65 : prev + 1));
+      setSleep((prev) => (prev >= 95 ? 82 : prev + 1));
+      setRecovery((prev) => (prev >= 92 ? 71 : prev + 1));
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const aiResponse = useMemo(() => {
+    if (!message) {
+      return 'Your AI lifestyle assistant is ready to analyze nutrition, workouts, sleep, recovery, and performance.';
+    }
+
+    return `AI Analysis: Based on your input "${message}", your lifestyle optimization score improved by 11%. Recommended focus: better sleep timing, high-protein nutrition, and recovery-centered training.`;
+  }, [message]);
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-hidden relative">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,255,255,0.15),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(128,0,255,0.18),transparent_30%)]" />
+    <div className="min-h-screen overflow-hidden bg-[#04040B] text-white">
+      <div className="fixed inset-0 opacity-30">
+        <div className="absolute left-0 top-0 h-[500px] w-[500px] rounded-full bg-cyan-500 blur-[180px]" />
+        <div className="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full bg-purple-500 blur-[180px]" />
+      </div>
 
-      <header className="relative z-10 flex items-center justify-between px-10 py-6 border-b border-white/10 backdrop-blur-xl">
-        <div className="text-3xl font-black tracking-wider bg-gradient-to-r from-cyan-400 to-purple-500 text-transparent bg-clip-text">
-          LIFE AI X
-        </div>
-
-        <nav className="hidden md:flex gap-8 text-sm text-white/70">
-          <a href="#" className="hover:text-cyan-400 transition">Dashboard</a>
-          <a href="#" className="hover:text-cyan-400 transition">AI Coach</a>
-          <a href="#" className="hover:text-cyan-400 transition">Nutrition</a>
-          <a href="#" className="hover:text-cyan-400 transition">Analytics</a>
-          <a href="#" className="hover:text-cyan-400 transition">Recovery</a>
-        </nav>
-
-        <button className="px-6 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-purple-600 hover:scale-105 transition shadow-[0_0_40px_rgba(0,255,255,0.4)]">
-          Launch AI
-        </button>
-      </header>
-
-      <section className="relative z-10 px-10 pt-24 pb-20 grid lg:grid-cols-2 gap-16 items-center">
-        <div>
-          <div className="inline-block px-4 py-2 rounded-full border border-cyan-500/40 bg-cyan-500/10 text-cyan-300 text-sm mb-6">
-            FUTURE OF HUMAN OPTIMIZATION
-          </div>
-
-          <h1 className="text-6xl md:text-7xl font-black leading-tight mb-8">
-            Your
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 text-transparent bg-clip-text"> AI </span>
-            Lifestyle
-            <br />
-            Revolution.
-          </h1>
-
-          <p className="text-white/70 text-xl leading-relaxed max-w-2xl mb-10">
-            Analyze your sleep, stress, nutrition, workouts, hydration, habits, recovery,
-            and performance using next-generation artificial intelligence. Get custom
-            workouts, optimized meal combinations, and predictive wellness insights.
-          </p>
-
-          <div className="flex flex-wrap gap-5">
-            <button className="px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 text-lg font-bold hover:scale-105 transition shadow-[0_0_60px_rgba(0,255,255,0.35)]">
-              Start Optimization
-            </button>
-
-            <button className="px-8 py-4 rounded-2xl border border-white/20 backdrop-blur-xl hover:border-cyan-400 transition text-lg">
-              Watch Demo
-            </button>
-          </div>
-        </div>
-
-        <div className="relative">
-          <div className="absolute inset-0 blur-3xl bg-cyan-500/20 rounded-full" />
-
-          <div className="relative rounded-[40px] border border-white/10 bg-white/5 backdrop-blur-2xl p-8 shadow-[0_0_100px_rgba(0,255,255,0.15)]">
-            <div className="flex items-center justify-between mb-8">
-              <div>
-                <p className="text-white/50 text-sm">AI Recovery Analysis</p>
-                <h3 className="text-3xl font-bold">92% Optimized</h3>
-              </div>
-
-              <div className="w-20 h-20 rounded-full border-4 border-cyan-400 flex items-center justify-center text-cyan-300 font-bold text-xl shadow-[0_0_40px_rgba(0,255,255,0.4)]">
-                92
-              </div>
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-black/30 backdrop-blur-3xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-6">
+          <div className="flex items-center gap-4">
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-r from-cyan-500 to-purple-600 shadow-[0_0_50px_rgba(0,255,255,0.4)]">
+              <Cpu className="h-7 w-7" />
             </div>
 
-            <div className="space-y-5">
-              {stats.map((item, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/30 p-5"
-                >
-                  <div>
-                    <p className="text-white/50 text-sm">{item.title}</p>
-                    <h4 className="text-2xl font-bold mt-1">{item.value}</h4>
-                  </div>
+            <div>
+              <h1 className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-3xl font-black text-transparent">
+                LIFE.OS AI
+              </h1>
 
-                  <div className="text-cyan-300 text-sm">{item.desc}</div>
-                </div>
+              <p className="text-sm text-white/50">
+                Future Human Optimization Platform
+              </p>
+            </div>
+          </div>
+
+          <nav className="hidden gap-8 lg:flex">
+            {[
+              'Dashboard',
+              'AI Coach',
+              'Nutrition',
+              'Analytics',
+              'Recovery',
+              'Performance',
+            ].map((item) => (
+              <a
+                key={item}
+                href="#"
+                className="text-sm text-white/60 transition hover:text-cyan-300"
+              >
+                {item}
+              </a>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-4">
+            <button className="relative flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
+              <Bell className="h-5 w-5" />
+              <div className="absolute right-3 top-3 h-2 w-2 rounded-full bg-cyan-400" />
+            </button>
+
+            <GradientButton>
+              Launch AI
+            </GradientButton>
+          </div>
+        </div>
+      </header>
+
+      <main className="relative z-10 mx-auto max-w-7xl px-8 pb-24 pt-16">
+        <section className="grid items-center gap-20 lg:grid-cols-2">
+          <div>
+            <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-5 py-3 text-cyan-300 backdrop-blur-xl">
+              <Sparkles className="h-5 w-5" />
+              NEXT GENERATION AI LIFESTYLE SYSTEM
+            </div>
+
+            <h1 className="mb-10 text-6xl font-black leading-[1.05] md:text-7xl">
+              Optimize Your
+              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+                {' '}
+                Entire Life
+              </span>
+              <br />
+              Using Artificial Intelligence.
+            </h1>
+
+            <p className="mb-10 max-w-2xl text-xl leading-relaxed text-white/65">
+              Analyze workouts, nutrition, stress, hydration, sleep, recovery, mental
+              performance, body transformation, and long-term health optimization using
+              advanced AI systems designed for the future of human performance.
+            </p>
+
+            <div className="flex flex-wrap gap-5">
+              <GradientButton>
+                Begin Optimization
+              </GradientButton>
+
+              <button className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-8 py-4 text-lg font-semibold backdrop-blur-xl transition hover:border-cyan-400">
+                <Play className="h-5 w-5" />
+                Watch Demo
+              </button>
+            </div>
+
+            <div className="mt-14 grid gap-6 md:grid-cols-3">
+              {[
+                ['1M+', 'AI Predictions'],
+                ['92%', 'Optimization Accuracy'],
+                ['24/7', 'AI Monitoring'],
+              ].map((item, index) => (
+                <GlassCard key={index} className="p-6">
+                  <h3 className="text-4xl font-black text-cyan-300">
+                    {item[0]}
+                  </h3>
+
+                  <p className="mt-3 text-white/60">
+                    {item[1]}
+                  </p>
+                </GlassCard>
               ))}
             </div>
           </div>
-        </div>
-      </section>
 
-      <section className="relative z-10 px-10 py-20">
-        <div className="text-center mb-16">
-          <h2 className="text-5xl font-black mb-6">
-            AI-Powered Wellness Ecosystem
-          </h2>
+          <div className="relative">
+            <div className="absolute inset-0 rounded-full bg-cyan-500/10 blur-[100px]" />
 
-          <p className="text-white/60 max-w-3xl mx-auto text-lg">
-            Intelligent systems designed to optimize every aspect of your lifestyle using
-            machine learning, predictive analytics, and adaptive recommendations.
-          </p>
-        </div>
+            <GlassCard className="relative overflow-hidden p-8">
+              <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-cyan-500/20 blur-[80px]" />
 
-        <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8">
-          {[
-            {
-              title: 'AI Nutrition Engine',
-              desc: 'Detects food quality, calories, nutrient timing, and optimal combinations.',
-            },
-            {
-              title: 'Workout Intelligence',
-              desc: 'Creates adaptive workouts based on energy, sleep, goals, and recovery.',
-            },
-            {
-              title: 'Stress Prediction',
-              desc: 'AI predicts burnout risk and mental fatigue using behavioral patterns.',
-            },
-            {
-              title: 'Health Analytics',
-              desc: 'Track long-term performance, habits, consistency, and transformation.',
-            },
-          ].map((feature, index) => (
-            <div
-              key={index}
-              className="rounded-[30px] border border-white/10 bg-white/5 backdrop-blur-2xl p-8 hover:-translate-y-2 transition duration-300 shadow-[0_0_40px_rgba(255,255,255,0.05)]"
-            >
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-r from-cyan-500 to-purple-600 mb-6 flex items-center justify-center text-2xl font-black shadow-[0_0_30px_rgba(0,255,255,0.4)]">
-                {index + 1}
-              </div>
-
-              <h3 className="text-2xl font-bold mb-4">{feature.title}</h3>
-
-              <p className="text-white/60 leading-relaxed">{feature.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="relative z-10 px-10 py-24 grid lg:grid-cols-2 gap-12">
-        <div className="rounded-[35px] border border-cyan-500/20 bg-cyan-500/5 backdrop-blur-2xl p-8 shadow-[0_0_70px_rgba(0,255,255,0.08)]">
-          <div className="flex items-center justify-between mb-10">
-            <div>
-              <p className="text-cyan-300 text-sm uppercase tracking-[4px]">
-                AI Workout Generator
-              </p>
-
-              <h2 className="text-4xl font-black mt-3">
-                Personalized Training
-              </h2>
-            </div>
-
-            <div className="w-24 h-24 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 blur-2xl opacity-40" />
-          </div>
-
-          <div className="space-y-5">
-            {workouts.map((workout, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-between p-5 rounded-2xl border border-white/10 bg-black/30"
-              >
+              <div className="mb-10 flex items-center justify-between">
                 <div>
-                  <h4 className="text-xl font-bold">{workout}</h4>
-                  <p className="text-white/50 text-sm mt-1">
-                    Adaptive AI training sequence
+                  <p className="text-sm uppercase tracking-[4px] text-cyan-300">
+                    Live AI Analytics
                   </p>
+
+                  <h2 className="mt-4 text-4xl font-black">
+                    Health Intelligence
+                  </h2>
                 </div>
 
-                <button className="px-5 py-3 rounded-xl bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 hover:bg-cyan-500/30 transition">
-                  Start
-                </button>
+                <div className="flex h-28 w-28 items-center justify-center rounded-full border-4 border-cyan-400 text-3xl font-black text-cyan-300 shadow-[0_0_70px_rgba(0,255,255,0.4)]">
+                  {healthScore}
+                </div>
               </div>
-            ))}
+
+              <div className="space-y-6">
+                {dashboardStats.map((stat, index) => {
+                  const Icon = stat.icon;
+
+                  return (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between rounded-3xl border border-white/10 bg-black/20 p-6"
+                    >
+                      <div className="flex items-center gap-5">
+                        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-cyan-500 to-purple-500">
+                          <Icon className="h-8 w-8" />
+                        </div>
+
+                        <div>
+                          <p className="text-sm text-white/50">
+                            {stat.title}
+                          </p>
+
+                          <h3 className="mt-1 text-3xl font-black">
+                            {stat.value}
+                          </h3>
+                        </div>
+                      </div>
+
+                      <div className="rounded-full border border-green-500/20 bg-green-500/10 px-5 py-2 text-green-300">
+                        {stat.growth}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </GlassCard>
           </div>
-        </div>
+        </section>
 
-        <div className="rounded-[35px] border border-purple-500/20 bg-purple-500/5 backdrop-blur-2xl p-8 shadow-[0_0_70px_rgba(128,0,255,0.08)]">
-          <div className="mb-10">
-            <p className="text-purple-300 text-sm uppercase tracking-[4px]">
-              AI Food Intelligence
-            </p>
+        <section className="mt-32">
+          <div className="mb-16 text-center">
+            <div className="mb-5 inline-flex items-center gap-3 rounded-full border border-purple-500/20 bg-purple-500/10 px-5 py-3 text-purple-300">
+              <Zap className="h-5 w-5" />
+              ADVANCED AI FEATURES
+            </div>
 
-            <h2 className="text-4xl font-black mt-3">
-              Smart Meal Combinations
+            <h2 className="text-5xl font-black md:text-6xl">
+              The Most Intelligent
+              <br />
+              Wellness Ecosystem Ever Built
             </h2>
+
+            <p className="mx-auto mt-8 max-w-4xl text-xl leading-relaxed text-white/60">
+              Every system works together to optimize your physical performance, mental
+              recovery, nutrition timing, daily habits, and long-term lifestyle health.
+            </p>
           </div>
 
-          <div className="space-y-5">
-            {foods.map((food, index) => (
-              <div
-                key={index}
-                className="rounded-2xl border border-white/10 bg-black/30 p-6"
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <h4 className="text-xl font-bold">{food.name}</h4>
-                  <span className="px-4 py-2 rounded-full bg-green-500/20 text-green-300 border border-green-400/30 text-sm">
-                    {food.score}
-                  </span>
-                </div>
+          <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
 
-                <p className="text-white/60 mb-3">
-                  Optimized nutrient timing and muscle recovery support.
+              return (
+                <GlassCard
+                  key={index}
+                  className="group relative overflow-hidden p-10 transition duration-500 hover:-translate-y-3 hover:border-cyan-400/30"
+                >
+                  <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-cyan-500/10 blur-[70px] transition duration-500 group-hover:bg-cyan-500/20" />
+
+                  <div className="mb-8 flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-r from-cyan-500 to-purple-600 shadow-[0_0_50px_rgba(0,255,255,0.2)]">
+                    <Icon className="h-10 w-10" />
+                  </div>
+
+                  <h3 className="mb-5 text-3xl font-black">
+                    {feature.title}
+                  </h3>
+
+                  <p className="leading-relaxed text-white/60">
+                    {feature.description}
+                  </p>
+
+                  <button className="mt-8 flex items-center gap-3 text-cyan-300 transition hover:gap-5">
+                    Explore Feature
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
+                </GlassCard>
+              );
+            })}
+          </div>
+        </section>
+
+        <section className="mt-32 grid gap-10 lg:grid-cols-2">
+          <GlassCard className="p-10">
+            <div className="mb-10 flex items-center justify-between">
+              <div>
+                <p className="text-sm uppercase tracking-[4px] text-cyan-300">
+                  Nutrition Intelligence
                 </p>
 
-                <div className="w-full h-3 bg-white/10 rounded-full overflow-hidden">
-                  <div
-                    className="h-full rounded-full bg-gradient-to-r from-purple-500 to-pink-500"
-                    style={{ width: `${80 + index * 5}%` }}
-                  />
-                </div>
-
-                <div className="mt-3 text-purple-300 text-sm font-semibold">
-                  {food.protein}
-                </div>
+                <h2 className="mt-3 text-5xl font-black">
+                  AI Meal Optimizer
+                </h2>
               </div>
-            ))}
+
+              <Utensils className="h-12 w-12 text-cyan-300" />
+            </div>
+
+            <div className="space-y-6">
+              {meals.map((meal, index) => (
+                <div
+                  key={index}
+                  className="rounded-3xl border border-white/10 bg-black/20 p-6"
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-2xl font-black">
+                        {meal.title}
+                      </h3>
+
+                      <div className="mt-3 flex gap-6 text-sm text-white/60">
+                        <span>{meal.calories} kcal</span>
+                        <span>{meal.protein} Protein</span>
+                        <span>{meal.carbs} Carbs</span>
+                      </div>
+                    </div>
+
+                    <div className="flex h-20 w-20 items-center justify-center rounded-full border-4 border-green-400 text-2xl font-black text-green-300">
+                      {meal.score}
+                    </div>
+                  </div>
+
+                  <div className="mt-6">
+                    <ProgressBar value={meal.score} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </GlassCard>
+
+          <GlassCard className="p-10">
+            <div className="mb-10 flex items-center justify-between">
+              <div>
+                <p className="text-sm uppercase tracking-[4px] text-purple-300">
+                  Adaptive Training
+                </p>
+
+                <h2 className="mt-3 text-5xl font-black">
+                  Workout Intelligence
+                </h2>
+              </div>
+
+              <Dumbbell className="h-12 w-12 text-purple-300" />
+            </div>
+
+            <div className="space-y-6">
+              {workouts.map((workout, index) => (
+                <div
+                  key={index}
+                  className="rounded-3xl border border-white/10 bg-black/20 p-6"
+                >
+                  <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+                    <div>
+                      <h3 className="text-2xl font-black">
+                        {workout.name}
+                      </h3>
+
+                      <div className="mt-3 flex flex-wrap gap-4 text-sm text-white/60">
+                        <span>{workout.duration}</span>
+                        <span>{workout.intensity}</span>
+                        <span>{workout.recovery}</span>
+                      </div>
+                    </div>
+
+                    <button className="rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-3 font-bold transition hover:scale-105">
+                      Start Session
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </GlassCard>
+        </section>
+
+        <section className="mt-32 grid gap-10 lg:grid-cols-3">
+          <GlassCard className="p-10 lg:col-span-2">
+            <div className="mb-10 flex items-center justify-between">
+              <div>
+                <p className="text-sm uppercase tracking-[4px] text-cyan-300">
+                  AI Lifestyle Coach
+                </p>
+
+                <h2 className="mt-3 text-5xl font-black">
+                  Personalized AI Guidance
+                </h2>
+              </div>
+
+              <Brain className="h-14 w-14 text-cyan-300" />
+            </div>
+
+            <div className="rounded-3xl border border-white/10 bg-black/20 p-6">
+              <textarea
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Describe your lifestyle, habits, goals, sleep, workouts, stress, or nutrition..."
+                className="h-44 w-full resize-none rounded-3xl border border-white/10 bg-black/30 p-6 text-lg text-white outline-none placeholder:text-white/30"
+              />
+
+              <div className="mt-6 flex justify-end">
+                <GradientButton>
+                  Generate AI Analysis
+                </GradientButton>
+              </div>
+            </div>
+
+            <div className="mt-8 rounded-3xl border border-cyan-500/20 bg-cyan-500/10 p-8 text-lg leading-relaxed text-cyan-100">
+              {aiResponse}
+            </div>
+          </GlassCard>
+
+          <GlassCard className="p-10">
+            <div className="mb-10 flex items-center justify-between">
+              <div>
+                <p className="text-sm uppercase tracking-[4px] text-purple-300">
+                  Habit Tracking
+                </p>
+
+                <h2 className="mt-3 text-4xl font-black">
+                  Daily Protocols
+                </h2>
+              </div>
+
+              <Calendar className="h-12 w-12 text-purple-300" />
+            </div>
+
+            <div className="space-y-5">
+              {habits.map((habit, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-4 rounded-2xl border border-white/10 bg-black/20 p-5"
+                >
+                  <CheckCircle2 className="h-6 w-6 text-green-400" />
+
+                  <span className="text-white/80">
+                    {habit}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </GlassCard>
+        </section>
+
+        <section className="mt-32 grid gap-10 lg:grid-cols-4">
+          <GlassCard className="p-8">
+            <div className="mb-6 flex items-center justify-between">
+              <Activity className="h-10 w-10 text-cyan-300" />
+              <span className="text-4xl font-black">
+                {healthScore}%
+              </span>
+            </div>
+
+            <h3 className="text-2xl font-black">
+              Health Recovery
+            </h3>
+
+            <p className="mt-3 text-white/60">
+              AI calculated recovery score based on sleep, activity, stress, and nutrition.
+            </p>
+
+            <div className="mt-6">
+              <ProgressBar value={healthScore} />
+            </div>
+          </GlassCard>
+
+          <GlassCard className="p-8">
+            <div className="mb-6 flex items-center justify-between">
+              <Waves className="h-10 w-10 text-blue-300" />
+              <span className="text-4xl font-black">
+                {hydration}%
+              </span>
+            </div>
+
+            <h3 className="text-2xl font-black">
+              Hydration Level
+            </h3>
+
+            <p className="mt-3 text-white/60">
+              AI hydration tracking optimized for cognitive and athletic performance.
+            </p>
+
+            <div className="mt-6">
+              <ProgressBar value={hydration} />
+            </div>
+          </GlassCard>
+
+          <GlassCard className="p-8">
+            <div className="mb-6 flex items-center justify-between">
+              <Moon className="h-10 w-10 text-purple-300" />
+              <span className="text-4xl font-black">
+                {sleep}%
+              </span>
+            </div>
+
+            <h3 className="text-2xl font-black">
+              Sleep Quality
+            </h3>
+
+            <p className="mt-3 text-white/60">
+              Circadian rhythm optimization and deep recovery intelligence.
+            </p>
+
+            <div className="mt-6">
+              <ProgressBar value={sleep} />
+            </div>
+          </GlassCard>
+
+          <GlassCard className="p-8">
+            <div className="mb-6 flex items-center justify-between">
+              <TrendingUp className="h-10 w-10 text-green-300" />
+              <span className="text-4xl font-black">
+                {recovery}%
+              </span>
+            </div>
+
+            <h3 className="text-2xl font-black">
+              Performance Trend
+            </h3>
+
+            <p className="mt-3 text-white/60">
+              Long-term AI analytics tracking transformation and consistency.
+            </p>
+
+            <div className="mt-6">
+              <ProgressBar value={recovery} />
+            </div>
+          </GlassCard>
+        </section>
+
+        <section className="mt-32 overflow-hidden rounded-[50px] border border-white/10 bg-gradient-to-r from-cyan-500/10 via-blue-500/10 to-purple-500/10 p-14 backdrop-blur-3xl">
+          <div className="grid items-center gap-16 lg:grid-cols-2">
+            <div>
+              <div className="mb-5 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-cyan-300">
+                <Star className="h-5 w-5" />
+                PREMIUM AI EXPERIENCE
+              </div>
+
+              <h2 className="text-6xl font-black leading-tight">
+                Upgrade Your Body,
+                <br />
+                Mind, Recovery,
+                <br />
+                and Performance.
+              </h2>
+
+              <p className="mt-8 max-w-2xl text-xl leading-relaxed text-white/70">
+                Experience the next evolution of human optimization with advanced AI systems,
+                predictive wellness intelligence, nutrition analysis, recovery monitoring,
+                and adaptive performance engineering.
+              </p>
+
+              <div className="mt-10 flex flex-wrap gap-5">
+                <GradientButton>
+                  Start Your Journey
+                </GradientButton>
+
+                <button className="rounded-2xl border border-white/10 bg-white/5 px-8 py-4 font-bold backdrop-blur-xl transition hover:border-cyan-400">
+                  Explore Platform
+                </button>
+              </div>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              {[
+                ['AI Predictions', '1.8M+'],
+                ['Workout Sessions', '940K'],
+                ['Meals Analyzed', '4.2M'],
+                ['Recovery Calculations', '11M'],
+              ].map((item, index) => (
+                <GlassCard key={index} className="p-8 text-center">
+                  <h3 className="text-5xl font-black text-cyan-300">
+                    {item[1]}
+                  </h3>
+
+                  <p className="mt-4 text-lg text-white/60">
+                    {item[0]}
+                  </p>
+                </GlassCard>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="border-t border-white/10 bg-black/30 backdrop-blur-3xl">
+        <div className="mx-auto grid max-w-7xl gap-14 px-8 py-16 md:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <div className="mb-6 flex items-center gap-4">
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-r from-cyan-500 to-purple-600">
+                <Cpu className="h-7 w-7" />
+              </div>
+
+              <div>
+                <h3 className="text-2xl font-black">
+                  LIFE.OS AI
+                </h3>
+
+                <p className="text-white/50">
+                  Human Optimization Platform
+                </p>
+              </div>
+            </div>
+
+            <p className="leading-relaxed text-white/60">
+              The future of intelligent wellness, adaptive health analytics, nutrition AI,
+              and lifestyle optimization.
+            </p>
+          </div>
+
+          <div>
+            <h4 className="mb-6 text-xl font-black">
+              Platform
+            </h4>
+
+            <div className="space-y-4 text-white/60">
+              <p>Dashboard</p>
+              <p>AI Coach</p>
+              <p>Nutrition</p>
+              <p>Recovery</p>
+              <p>Performance</p>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="mb-6 text-xl font-black">
+              Resources
+            </h4>
+
+            <div className="space-y-4 text-white/60">
+              <p>Documentation</p>
+              <p>API Access</p>
+              <p>Health Reports</p>
+              <p>AI Analytics</p>
+              <p>Integrations</p>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="mb-6 text-xl font-black">
+              Contact
+            </h4>
+
+            <div className="space-y-4 text-white/60">
+              <p>support@lifeos.ai</p>
+              <p>partnerships@lifeos.ai</p>
+              <p>enterprise@lifeos.ai</p>
+              <p>24/7 AI Support</p>
+            </div>
           </div>
         </div>
-      </section>
 
-      <section className="relative z-10 px-10 py-20">
-        <div className="rounded-[40px] overflow-hidden border border-white/10 bg-gradient-to-r from-cyan-500/10 via-blue-500/10 to-purple-500/10 backdrop-blur-2xl p-12 text-center">
-          <h2 className="text-6xl font-black mb-8 leading-tight">
-            Upgrade Your Entire Lifestyle
-            <br />
-            With Artificial Intelligence.
-          </h2>
-
-          <p className="text-white/70 text-xl max-w-4xl mx-auto leading-relaxed mb-12">
-            Train smarter. Eat better. Sleep deeper. Recover faster. Build habits that
-            transform your physical and mental performance using one intelligent system.
-          </p>
-
-          <div className="flex flex-wrap justify-center gap-6">
-            <button className="px-10 py-5 rounded-2xl text-xl font-bold bg-gradient-to-r from-cyan-500 to-blue-600 hover:scale-105 transition shadow-[0_0_70px_rgba(0,255,255,0.3)]">
-              Begin Transformation
-            </button>
-
-            <button className="px-10 py-5 rounded-2xl text-xl border border-white/20 hover:border-cyan-400 transition backdrop-blur-xl">
-              Explore Dashboard
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <footer className="relative z-10 px-10 py-10 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-5 text-white/50 text-sm">
-        <div>
-          © 2026 LIFE AI X — The Future of Human Optimization
-        </div>
-
-        <div className="flex gap-6">
-          <a href="#" className="hover:text-cyan-300 transition">Privacy</a>
-          <a href="#" className="hover:text-cyan-300 transition">Terms</a>
-          <a href="#" className="hover:text-cyan-300 transition">Support</a>
+        <div className="border-t border-white/10 py-8 text-center text-white/40">
+          © 2026 LIFE.OS AI — Built for the Future of Human Performance.
         </div>
       </footer>
     </div>
