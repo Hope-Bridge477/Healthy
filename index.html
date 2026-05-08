@@ -2,223 +2,43 @@
 <html lang="en">
 
 <head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LifeAI - Smart Lifestyle Coach</title>
+
+<!-- CONNECT CSS -->
 <link rel="stylesheet" href="style.css">
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>LifeAI</title>
-
-    <link rel="stylesheet"
-          href="style.css">
 
 </head>
 
 <body>
 
-    <nav>
+<nav>
+    <div class="logo">LifeAI</div>
+</nav>
 
-        <div class="logo">
-            LifeAI
-        </div>
+<section class="hero">
 
-        <ul>
+    <h1>AI Lifestyle Coach</h1>
 
-            <li>Dashboard</li>
+    <p>Type your lifestyle and get smart health suggestions</p>
 
-            <li>Nutrition</li>
+</section>
 
-            <li>Workouts</li>
+<section class="app">
 
-            <li>Recovery</li>
+    <textarea id="userInput" placeholder="Example: I sleep late, eat junk food, no exercise..."></textarea>
 
-            <li>Analytics</li>
+    <button id="analyzeBtn">Analyze Lifestyle</button>
 
-        </ul>
+    <div id="responseBox">Your AI response will appear here...</div>
 
-    </nav>
+</section>
 
-    <section class="hero">
-
-        <div class="hero-text">
-
-            <h1>
-
-                AI Powered
-
-                <span>
-                    Lifestyle
-                </span>
-
-                Optimization
-
-            </h1>
-
-            <p>
-
-                Analyze sleep, nutrition, workouts,
-                stress, hydration, and performance
-                using futuristic artificial intelligence.
-
-            </p>
-
-            <button class="main-btn">
-
-                Launch AI
-
-            </button>
-
-        </div>
-
-        <div class="hero-card">
-
-            <div class="circle">
-
-                94%
-
-            </div>
-
-            <div class="stat">
-
-                <p>Health Score</p>
-
-                <h2>Excellent</h2>
-
-            </div>
-
-            <div class="stat">
-
-                <p>Calories Burned</p>
-
-                <h2>2481</h2>
-
-            </div>
-
-            <div class="stat">
-
-                <p>Sleep Optimization</p>
-
-                <h2>8.7 Hours</h2>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <section class="features">
-
-        <h2>
-
-            AI Features
-
-        </h2>
-
-        <div class="feature-grid">
-
-            <div class="feature-card">
-
-                <h3>🥗 Nutrition AI</h3>
-
-                <p>
-
-                    Analyze food quality,
-                    calories, vitamins,
-                    and healthy combinations.
-
-                </p>
-
-            </div>
-
-            <div class="feature-card">
-
-                <h3>🏋️ Workout AI</h3>
-
-                <p>
-
-                    Generate personalized workouts
-                    using your goals and recovery.
-
-                </p>
-
-            </div>
-
-            <div class="feature-card">
-
-                <h3>😴 Sleep Analysis</h3>
-
-                <p>
-
-                    Detect deep sleep quality
-                    and recovery optimization.
-
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <section class="ai-section">
-
-        <div class="ai-box">
-
-            <h2>
-
-                AI Lifestyle Coach
-
-            </h2>
-
-            <textarea
-                id="userInput"
-
-                placeholder="Describe your lifestyle...">
-
-            </textarea>
-
-            <button
-                id="analyzeBtn"
-
-                class="analyze-btn">
-
-                Analyze Lifestyle
-
-            </button>
-
-        </div>
-
-        <div class="ai-box">
-
-            <h2>
-
-                AI Response
-
-            </h2>
-
-            <div
-                id="responseBox"
-
-                class="response-box">
-
-                AI is waiting for your input...
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <footer>
-
-        © 2026 LifeAI
-
-    </footer>
-
-    <script src="script.js"></script>
+<!-- CONNECT JS -->
 <script src="script.js"></script>
-</body>
 
+</body>
 </html>
